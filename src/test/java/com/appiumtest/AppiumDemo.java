@@ -97,6 +97,22 @@ public class AppiumDemo {
 			MobileElement addToCart = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart");
 			action.tap(ElementOption.element(addToCart)).perform();
 
+			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+
+			//Get to Shopping cart
+			MobileElement getToTheCart = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/menu_cart");
+			action.tap(ElementOption.element(getToTheCart)).perform();
+
+
+
+			//Checkout
+			MobileElement checkOut = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.RelativeLayout/android.view.ViewGroup[3]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.view.ViewGroup/android.widget.TextView[2]");
+			action.tap(ElementOption.element(checkOut)).perform();
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+			//As a guest
+			MobileElement asAGuest = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout");
+			action.tap(ElementOption.element(asAGuest)).perform();
 
 
 
