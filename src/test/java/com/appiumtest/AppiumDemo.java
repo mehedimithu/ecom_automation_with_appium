@@ -15,6 +15,7 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.AppiumDriver;
@@ -32,7 +33,16 @@ public class AppiumDemo {
 	}
 
 
-
+	private static void scrollDown2(){
+		Dimension dimension = driver.manage().window().getSize();
+		int scrollStart = (int) (dimension.getHeight() * 0.100);
+		int scrollEnd = (int) (dimension.getHeight() * 0.01);
+		TouchAction action = new TouchAction(driver);
+		action.press(PointOption.point(0,scrollStart))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(5)))
+				.moveTo(PointOption.point(0,scrollEnd))
+				.release().perform();
+	}
 	private static void scrollDown(){
 		Dimension dimension = driver.manage().window().getSize();
 		int scrollStart = (int) (dimension.getHeight() * 0.57);
@@ -131,24 +141,60 @@ public class AppiumDemo {
 			//Checkout
 			MobileElement checkOut = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.RelativeLayout/android.view.ViewGroup[3]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.view.ViewGroup/android.widget.TextView[2]");
 			action.tap(ElementOption.element(checkOut)).perform();
-			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 			//As a guest
 			MobileElement asAGuest = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout");
 			action.tap(ElementOption.element(asAGuest)).perform();
+			driver.manage().timeouts().implicitlyWait(100,TimeUnit.SECONDS);
+
 
 			//shipping address add
-			MobileElement shippingAddress = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout");
-			action.tap(ElementOption.element(shippingAddress)).perform();
-
 			MobileElement firstName = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/etFirstName");
+			action.tap(ElementOption.element(firstName)).perform();
 			firstName.sendKeys("Mehedi");
-			MobileElement lastName = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/etLastName");
+
+			MobileElement lastName = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etLastName"));
+			action.tap(ElementOption.element(lastName)).perform();
 			lastName.sendKeys("Hasan");
-			MobileElement email = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/etEmail");
+
+			MobileElement email = driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout[2]/android.widget.FrameLayout[2]/android.view.ViewGroup[1]/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[3]/android.widget.FrameLayout/android.widget.EditText"));
+			action.tap(ElementOption.element(email)).perform();
 			email.sendKeys("mehdimithu@gmail.com");
 
+			List<MobileElement> dropdownItems = driver.findElements(By.xpath("com.nopstation.nopcommerce.nopstationcart:id/countrySpinner"));
+			dropdownItems.get(1).click();
+			driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS );
 
+			List<MobileElement> stateList = driver.findElementsById("com.nopstation.nopcommerce.nopstationcart:id/stateSpinner");
+			stateList.get(0).click();
+
+			scrollDown2();
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS );
+
+			//com.nopstation.nopcommerce.nopstationcart:id/etCompanyName
+			MobileElement company = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCompanyName"));
+			action.tap(ElementOption.element(company)).perform();
+			email.sendKeys("Little Big Town");
+			//com.nopstation.nopcommerce.nopstationcart:id/etCity
+			MobileElement city = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity"));
+			action.tap(ElementOption.element(city)).perform();
+			email.sendKeys("Dhaka");
+			//com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress
+			MobileElement streetAddress = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress"));
+			action.tap(ElementOption.element(streetAddress)).perform();
+			email.sendKeys("Dhaka");
+			//com.nopstation.nopcommerce.nopstationcart:id/etZipCode
+			MobileElement zipeCode = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etZipCode"));
+			action.tap(ElementOption.element(zipeCode)).perform();
+			email.sendKeys("1200");
+			//com.nopstation.nopcommerce.nopstationcart:id/etPhone
+			MobileElement phone = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etPhone"));
+			action.tap(ElementOption.element(phone)).perform();
+			email.sendKeys("01755525571");
+			//com.nopstation.nopcommerce.nopstationcart:id/btnContinue
+			MobileElement continueBtn = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue"));
+			action.tap(ElementOption.element(continueBtn)).perform();
 
 
 
