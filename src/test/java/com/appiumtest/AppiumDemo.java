@@ -112,6 +112,11 @@ public class AppiumDemo {
 			MobileElement clickDone = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/tvDone");
 			action.tap(ElementOption.element(clickDone)).perform();
 
+		/*	Given: Mike go to shopping cart by clicking top cart icon
+			When: Mike click checkout button from shopping cart page
+			And: Mike select checkout as guest from shopping cart page
+			Then: Mike input all the details in checkout billing details page and click continue*/
+
 			//Add to cart
 			MobileElement addToCart = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart");
 			action.tap(ElementOption.element(addToCart)).perform();
@@ -121,7 +126,6 @@ public class AppiumDemo {
 			//Get to Shopping cart
 			MobileElement getToTheCart = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/menu_cart");
 			action.tap(ElementOption.element(getToTheCart)).perform();
-
 
 
 			//Checkout
