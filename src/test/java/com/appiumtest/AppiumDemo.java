@@ -114,6 +114,10 @@ public class AppiumDemo {
 			MobileElement asAGuest = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout");
 			action.tap(ElementOption.element(asAGuest)).perform();
 
+			//shipping address add
+			MobileElement shippingAddress = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout");
+			action.tap(ElementOption.element(shippingAddress)).perform();
+
 
 
 		} catch (Exception e) {
