@@ -34,8 +34,8 @@ public class AppiumDemo {
 
 	private static void scrollDown(){
 		Dimension dimension = driver.manage().window().getSize();
-		int scrollStart = (int) (dimension.getHeight() * 0.40);
-		int scrollEnd = (int) (dimension.getHeight() * 0.01);
+		int scrollStart = (int) (dimension.getHeight() * 0.50);
+		int scrollEnd = (int) (dimension.getHeight() * 0.02);
 		TouchAction action = new TouchAction(driver);
 		action.press(PointOption.point(0,scrollStart))
 				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(5)))
@@ -90,6 +90,12 @@ public class AppiumDemo {
 			//And: Mike click to "Nokia Lumia 1020" product details page
 			MobileElement clickItem= driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.RelativeLayout/androidx.drawerlayout.widget.DrawerLayout/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[3]/android.view.ViewGroup");
 			action.tap(ElementOption.element(clickItem)).perform();
+
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+			//Add to cart
+			MobileElement addToCart = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart");
+			action.tap(ElementOption.element(addToCart)).perform();
 
 
 
