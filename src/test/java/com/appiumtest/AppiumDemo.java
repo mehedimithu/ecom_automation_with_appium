@@ -34,7 +34,7 @@ public class AppiumDemo {
 
 	private static void scrollDown(){
 		Dimension dimension = driver.manage().window().getSize();
-		int scrollStart = (int) (dimension.getHeight() * 0.30);
+		int scrollStart = (int) (dimension.getHeight() * 0.40);
 		int scrollEnd = (int) (dimension.getHeight() * 0.01);
 		TouchAction action = new TouchAction(driver);
 		action.press(PointOption.point(0,scrollStart))
@@ -79,10 +79,12 @@ public class AppiumDemo {
 					.release()
 					.perform();
 			WebElement clickHere= driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.RelativeLayout/android.view.ViewGroup[2]/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[4]");
-			clickHere.click();
+			action.tap(ElementOption.element(clickHere)).perform();
 
+
+			//Page Scrolling
 			scrollDown();
-			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 
 			//And: Mike click to "Nokia Lumia 1020" product details page
