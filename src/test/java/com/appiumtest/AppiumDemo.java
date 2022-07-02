@@ -12,6 +12,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -34,7 +35,7 @@ public class AppiumDemo {
 
 	private static void scrollDown(){
 		Dimension dimension = driver.manage().window().getSize();
-		int scrollStart = (int) (dimension.getHeight() * 0.50);
+		int scrollStart = (int) (dimension.getHeight() * 0.57);
 		int scrollEnd = (int) (dimension.getHeight() * 0.02);
 		TouchAction action = new TouchAction(driver);
 		action.press(PointOption.point(0,scrollStart))
@@ -57,11 +58,11 @@ public class AppiumDemo {
 		try {
 			URL uri = new URL("http://127.0.0.1:4723/wd/hub/");
 			driver = new AppiumDriver<MobileElement>(uri, caps);
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 			WebElement clickAndAgree = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.Button");
 			clickAndAgree.click();
-			driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(150, TimeUnit.SECONDS);
 
 			//When: Mike click "electronics" from our categories list from home page
 			List<MobileElement> categoriesItem = driver.findElements(MobileBy.AndroidUIAutomator("new UiSelector().resourceId(\"com.nopstation.nopcommerce.nopstationcart:id/ivProductThumb\")"));
@@ -93,11 +94,29 @@ public class AppiumDemo {
 
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
+
+		/*	Then: Mike select size "Large" from product details page
+			And: Mike click plus button to increase Qty by "2"
+			Then: Mike click add to cart button to add the product in his cart*/
+
+
+			MobileElement quantity = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnPlus");
+			action.tap(ElementOption.element(quantity)).perform();
+			MobileElement clickToSize = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.view.ViewGroup[1]");
+			action.tap(ElementOption.element(clickToSize)).perform();
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			List<MobileElement> getSize = driver.findElements(By.className("android.widget.RadioButton"));
+			getSize.get(1).click();
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+			MobileElement clickDone = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/tvDone");
+			action.tap(ElementOption.element(clickDone)).perform();
+
 			//Add to cart
 			MobileElement addToCart = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart");
 			action.tap(ElementOption.element(addToCart)).perform();
 
-			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 
 			//Get to Shopping cart
 			MobileElement getToTheCart = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/menu_cart");
@@ -117,6 +136,15 @@ public class AppiumDemo {
 			//shipping address add
 			MobileElement shippingAddress = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout");
 			action.tap(ElementOption.element(shippingAddress)).perform();
+
+			MobileElement firstName = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/etFirstName");
+			firstName.sendKeys("Mehedi");
+			MobileElement lastName = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/etLastName");
+			lastName.sendKeys("Hasan");
+			MobileElement email = driver.findElementById("com.nopstation.nopcommerce.nopstationcart:id/etEmail");
+			email.sendKeys("mehdimithu@gmail.com");
+
+
 
 
 
