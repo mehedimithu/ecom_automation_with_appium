@@ -10,7 +10,9 @@ import java.util.concurrent.TimeUnit;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -28,6 +30,18 @@ public class AppiumDemo {
 
 	}
 
+
+
+	private static void scrollDown(){
+		Dimension dimension = driver.manage().window().getSize();
+		int scrollStart = (int) (dimension.getHeight() * 0.30);
+		int scrollEnd = (int) (dimension.getHeight() * 0.01);
+		TouchAction action = new TouchAction(driver);
+		action.press(PointOption.point(0,scrollStart))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(5)))
+				.moveTo(PointOption.point(0,scrollEnd))
+				.release().perform();
+	}
 	public static void appiumTest1() {
 
 		DesiredCapabilities caps = new DesiredCapabilities();
@@ -67,11 +81,15 @@ public class AppiumDemo {
 			WebElement clickHere= driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.RelativeLayout/android.view.ViewGroup[2]/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[4]");
 			clickHere.click();
 
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			scrollDown();
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
- 			//And: Mike click to "Nokia Lumia 1020" product details page
-			WebElement clickItem= driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.RelativeLayout/androidx.drawerlayout.widget.DrawerLayout/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[3]/android.view.ViewGroup");
-			clickItem.click();
+
+			//And: Mike click to "Nokia Lumia 1020" product details page
+			MobileElement clickItem= driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.RelativeLayout/androidx.drawerlayout.widget.DrawerLayout/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[3]/android.view.ViewGroup");
+			action.tap(ElementOption.element(clickItem)).perform();
+
+
 
 
 		} catch (Exception e) {
